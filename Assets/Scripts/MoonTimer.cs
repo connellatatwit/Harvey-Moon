@@ -16,13 +16,13 @@ public class MoonTimer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(TimerSet());
+        StartCoroutine(TimerSet(maxTimer));
     }
 
-    private IEnumerator TimerSet()
+    private IEnumerator TimerSet(float time)
     {
         yield return new WaitForSeconds(1f);
-        StartTimer(15f);
+        StartTimer(time);
     }
     public void StartTimer(float time)
     {
@@ -44,6 +44,7 @@ public class MoonTimer : MonoBehaviour
 
     private IEnumerator EndTimer()
     {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().MoonDown();
         started = false;
         bigText.gameObject.SetActive(true);
         bigText.text = "Times Up!";

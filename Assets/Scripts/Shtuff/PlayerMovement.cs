@@ -9,9 +9,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] List<Sprite> headSprites;
     private Rigidbody2D rb;
 
+    private bool moonUp = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        moonUp = true;
     }
     // Update is called once per frame
     void Update()
@@ -22,14 +25,16 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector2 dir;
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        if (moonUp)
+        {
+            Vector2 dir;
+            float x = Input.GetAxis("Horizontal");
+            float y = Input.GetAxis("Vertical");
 
-        dir = new Vector2(x * speed, y * speed);
+            dir = new Vector2(x * speed, y * speed);
 
-        rb.velocity = dir;
-
+            rb.velocity = dir;
+        }
     }
 
     public void HandleLook(Vector3 mousePos)
@@ -84,5 +89,11 @@ public class PlayerMovement : MonoBehaviour
                 renderer.sprite = headSprites[4];
             }
         }
+    }
+
+    public void MoonDown()
+    {
+        moonUp = false;
+        rb.velocity = Vector2.zero;
     }
 }

@@ -11,12 +11,13 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody2D rb;
     [SerializeField] float lifeTime;
+    [SerializeField] int amountOfHits;
 
     private void Start()
     {
     }
 
-    public void InitBullet(Vector3 mousePos, int gunDamage, float gunSpeed, bool player)
+    public void InitBullet(Vector3 mousePos, int gunDamage, float gunSpeed, bool player, int amountOfHits)
     {
         rb = GetComponent<Rigidbody2D>();
         this.player = player;
@@ -31,6 +32,8 @@ public class Bullet : MonoBehaviour
         }
         float rotation = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, rotation);
+
+        this.amountOfHits = amountOfHits;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,7 +41,9 @@ public class Bullet : MonoBehaviour
         if(collision.tag == "Enemy")
         {
             collision.GetComponent<Enemy>().TakeDamage(damage);
-            Destroy(gameObject);
+            amountOfHits--;
+            if(amountOfHits <= 0)
+                Destroy(gameObject);
         }
         if(collision.tag == "Wall")
         {

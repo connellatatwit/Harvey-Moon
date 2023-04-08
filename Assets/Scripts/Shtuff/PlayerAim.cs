@@ -145,7 +145,7 @@ public class PlayerAim : MonoBehaviour
     {
         GameObject bullet = Instantiate(currentGunInfo.GetBullet(), transform.position, Quaternion.identity);
         bullet.transform.position = gunTip.transform.position;
-        bullet.GetComponent<Bullet>().InitBullet(mousePos, currentGunInfo.GetDamage(), currentGunInfo.GetSpeed(), true);
+        bullet.GetComponent<Bullet>().InitBullet(mousePos, currentGunInfo.GetDamage(), currentGunInfo.GetSpeed(), true, currentGunInfo.GetPierce()+1);
 
         cam.Shake((transform.position - gunTip.position).normalized, currentGunInfo.GetShakeStrength(), .05f);
     }

@@ -8,6 +8,7 @@ public class GunInformation
     [SerializeField] private int damage;
     [SerializeField] private float speed;
     [SerializeField] private float fireCd;
+    [SerializeField] private int pierce = 0;
 
     [SerializeField] float shakeStrength;
 
@@ -17,12 +18,15 @@ public class GunInformation
 
     public int GetDamage()
     {
-        Debug.Log("Damage is: " + damage);
         return damage;
     }
     public float GetSpeed()
     {
         return speed;
+    }
+    public int GetPierce()
+    {
+        return pierce;
     }
     public GameObject GetBullet()
     {
