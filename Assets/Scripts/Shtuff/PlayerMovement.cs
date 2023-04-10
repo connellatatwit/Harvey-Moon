@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] PlayerStats ps;
     [SerializeField] SpriteRenderer renderer;
     [SerializeField] List<Sprite> headSprites;
     private Rigidbody2D rb;
@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        ps = GetComponent<PlayerStats>();
         rb = GetComponent<Rigidbody2D>();
         moonUp = true;
     }
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
 
-            dir = new Vector2(x * speed, y * speed);
+            dir = new Vector2(x * ps.Speed, y * ps.Speed);
 
             rb.velocity = dir;
         }
@@ -91,9 +92,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void MoonDown()
+    public void MoonDown(bool moonDown)
     {
-        moonUp = false;
+        moonUp = !moonDown;
         rb.velocity = Vector2.zero;
     }
 }

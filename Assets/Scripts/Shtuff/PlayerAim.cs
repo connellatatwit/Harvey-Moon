@@ -29,7 +29,6 @@ public class PlayerAim : MonoBehaviour
     {
         cam = FindObjectOfType<CameraControl>();
 
-        Cursor.visible = false;
         EquipGun(tempTestGun);
         //EquipGun(tempTestGun2);
 

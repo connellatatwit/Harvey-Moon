@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 6818433334653674730}
   - component: {fileID: 8055704231792707866}
   - component: {fileID: 8660628302680390036}
+  - component: {fileID: 7370612826612781047}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -253,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b76f94771cda4eaf9b188ced5538c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  ps: {fileID: 0}
   renderer: {fileID: 7116763922644188854}
   headSprites:
   - {fileID: -1640642693, guid: e6c3d5d2e230bee44877bd37a01d35c2, type: 3}
@@ -299,6 +300,7 @@ MonoBehaviour:
     damage: 2
     speed: 20
     fireCd: 0.2
+    pierce: 0
     shakeStrength: 0.3
     rapidFire: 0
     bulletPrefab: {fileID: 1019834075862802972, guid: 6abbf08500c012c44a98ab3b7a101399, type: 3}
@@ -307,6 +309,7 @@ MonoBehaviour:
     damage: 0
     speed: 0
     fireCd: 0
+    pierce: 0
     shakeStrength: 0
     rapidFire: 0
     bulletPrefab: {fileID: 0}
@@ -315,6 +318,7 @@ MonoBehaviour:
     damage: 0
     speed: 0
     fireCd: 0
+    pierce: 0
     shakeStrength: 0
     rapidFire: 0
     bulletPrefab: {fileID: 0}
@@ -337,6 +341,20 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &7370612826612781047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116763922298588537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5ba836683e60b46b2ff1fb27ee3102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMoonLifeTime: 15
+  baseSpeed: 7.5
 --- !u!1 &7116763922644188856
 GameObject:
   m_ObjectHideFlags: 0

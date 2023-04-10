@@ -48,4 +48,13 @@ public class PlayerPickUpItem : MonoBehaviour
             AddToInventory(collision.gameObject);
         }
     }
+
+    public void Reset()
+    {
+        for (int i = heldItems.Count - 1; i >= 0; i--)
+        {
+            heldItems.RemoveAt(i);
+            UIM.RemoveItem(i);
+        }
+    }
 }

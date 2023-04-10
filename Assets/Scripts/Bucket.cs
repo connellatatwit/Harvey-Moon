@@ -11,6 +11,8 @@ public class Bucket : MonoBehaviour
     private bool buffer = false;
     private float bufferTimer;
 
+    private int money;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -41,5 +43,23 @@ public class Bucket : MonoBehaviour
     private void FillBucket(ScoreEntity newItem)
     {
         entities.Add(newItem);
+    }
+
+    public void EmptyBucket()
+    {
+        int moneyTemp = 0;
+
+        for (int i = entities.Count - 1; i >= 0; i--)
+        {
+            moneyTemp += entities[i].Value;
+            entities.RemoveAt(i);
+        }
+
+        money += moneyTemp;
+    }
+
+    public int Money
+    {
+        get { return money; }
     }
 }

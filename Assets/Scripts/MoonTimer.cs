@@ -13,22 +13,16 @@ public class MoonTimer : MonoBehaviour
     [SerializeField] TextMeshProUGUI bigText;
 
     bool started = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(TimerSet(maxTimer));
-    }
-
     private IEnumerator TimerSet(float time)
     {
         yield return new WaitForSeconds(1f);
-        StartTimer(time);
-    }
-    public void StartTimer(float time)
-    {
         started = true;
         timer = time;
         maxTimer = time;
+    }
+    public void StartTimer(float time)
+    {
+        StartCoroutine(TimerSet(time));
     }
 
     private void Update()
@@ -44,11 +38,14 @@ public class MoonTimer : MonoBehaviour
 
     private IEnumerator EndTimer()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().MoonDown();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().MoonDown(true);
         started = false;
         bigText.gameObject.SetActive(true);
         bigText.text = "Times Up!";
         yield return new WaitForSeconds(5f);
         bigText.gameObject.SetActive(false);
+
+        GameManager.instance.OpenOutGame();
+        Cursor.visible = true;
     }
 }

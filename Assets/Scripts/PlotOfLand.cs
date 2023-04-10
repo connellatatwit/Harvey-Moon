@@ -11,15 +11,12 @@ public class PlotOfLand : MonoBehaviour
     [SerializeField] GameObject mainCropPrefab;
     [SerializeField] List<Patch> patches;
 
-    private void Start()
-    {
-        InitPlot();
-    }
     public void InitPlot()
     {
         int maxSpawns = 0;
         for (int i = 0; i < patches.Count; i++)
         {
+            patches[i].InitPatch();
             maxSpawns = patches[i].Spawns();
             int spawns = Random.Range(maxSpawns / 2, maxSpawns);
 

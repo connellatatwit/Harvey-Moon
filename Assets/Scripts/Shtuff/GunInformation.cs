@@ -53,7 +53,6 @@ public class GunInformation
         fireCd = (1-amount) * fireCd;
     }
 
-
     public static GunInformation DeepCopy(GunInformation newGun)
     {
         GunInformation temp = new GunInformation();
