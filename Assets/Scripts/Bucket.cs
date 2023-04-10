@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Bucket : MonoBehaviour
 {
     [SerializeField] Transform player;
     private PlayerPickUpItem playerInv;
     [SerializeField] List<ScoreEntity> entities;
+
+    [SerializeField] TextMeshProUGUI moneyText;
 
     private bool buffer = false;
     private float bufferTimer;
@@ -56,6 +59,14 @@ public class Bucket : MonoBehaviour
         }
 
         money += moneyTemp;
+
+        moneyText.text = "Money: " + money.ToString();
+    }
+
+    public void SpendMoney(int anmount)
+    {
+        money -= anmount;
+        moneyText.text = "Money: " + money.ToString();
     }
 
     public int Money
