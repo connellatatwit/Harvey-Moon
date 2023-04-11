@@ -16,6 +16,8 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] Transform cursorPos;
     [SerializeField] LayerMask gunLayer;
 
+    [SerializeField] AudioSource shootSound; // TODO: Make the sound be dependant on the gunstats
+
     public GunInformation tempTestGun;
     public GunInformation tempTestGun2;
     public GunInformation tempTestGun3;
@@ -146,6 +148,7 @@ public class PlayerAim : MonoBehaviour
         bullet.transform.position = gunTip.transform.position;
         bullet.GetComponent<Bullet>().InitBullet(mousePos, currentGunInfo.GetDamage(), currentGunInfo.GetSpeed(), true, currentGunInfo.GetPierce()+1);
 
+        shootSound.Play();
         cam.Shake((transform.position - gunTip.position).normalized, currentGunInfo.GetShakeStrength(), .05f);
     }
 

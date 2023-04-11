@@ -552,10 +552,6 @@ PrefabInstance:
       propertyPath: cursorPos
       value: 
       objectReference: {fileID: 531539388}
-    - target: {fileID: 8055704231792707866, guid: 5eadd5807e309844bba10d85def7ae6a, type: 3}
-      propertyPath: tempTestGun.pierce
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8660628302680390036, guid: 5eadd5807e309844bba10d85def7ae6a, type: 3}
       propertyPath: UIM
       value: 
@@ -711,8 +707,8 @@ SpriteRenderer:
   m_SortingLayerID: -514362737
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.49056602, g: 0.38539276, b: 0.15966536, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1ae874e945279044f823ec0c262af0fc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

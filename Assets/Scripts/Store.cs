@@ -58,7 +58,7 @@ public class Store : MonoBehaviour
             value = moonUpgrades;
             cost = moonCost;
         }
-        if (bucket.Money <= cost)
+        if (bucket.Money < cost)
         {
             return;
         }
