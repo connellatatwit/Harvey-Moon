@@ -45,7 +45,7 @@ public class MoonTimer : MonoBehaviour
         yield return new WaitForSeconds(5f);
         bigText.gameObject.SetActive(false);
 
-        GameManager.instance.OpenOutGame();
+        GameManager.instance.ScoreBoard();
         Cursor.visible = true;
     }
 }

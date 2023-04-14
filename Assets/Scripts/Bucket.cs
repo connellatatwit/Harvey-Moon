@@ -73,4 +73,8 @@ public class Bucket : MonoBehaviour
     {
         get { return money; }
     }
+    public List<ScoreEntity> Items
+    {
+        get { return entities; }
+    }
 }

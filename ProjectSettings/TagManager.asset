@@ -19,7 +19,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Player
   - Wall
   - 
   - 
@@ -48,4 +48,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1167226595
+    locked: 0
+  - name: FF
+    uniqueID: 1232759211
     locked: 0

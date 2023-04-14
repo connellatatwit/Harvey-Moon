@@ -2,19 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+    InRun,
+    OutRun
+}
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Transform startLocation;
     [SerializeField] List<PlotOfLand> landPlots;
     [SerializeField] MoonTimer clock;
 
-    [SerializeField] GameObject outGameUi;
+    [SerializeField] UiManager UM;
 
     private Transform player;
     private PlayerStats playerStats;
     [SerializeField] Bucket bucket;
 
     public static GameManager instance;
+
+    private GameState state;
 
     private void Awake()
     {
@@ -29,16 +37,26 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerStats = player.GetComponent<PlayerStats>();
+
+        state = GameState.OutRun;
     }
     public void StartRun()
     {
-        Cursor.visible = false;
-
-        GameObject[] plants = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < plants.Length; i++)
+        if (state == GameState.OutRun)
         {
-            Destroy(plants[i]);
+            state = GameState.InRun;
+            Cursor.visible = false;
+            UM.CircleLoad();
+            StartCoroutine(ProcessRun());
         }
+    }
+
+    private IEnumerator ProcessRun()
+    {
+        // TEMP Waits for loading to load... Sorta
+        player.GetComponent<PlayerMovement>().MoonDown(true);
+        yield return new WaitForSeconds(2f);
+        // TEMP
 
         player.GetComponent<PlayerPickUpItem>().Reset();
 
@@ -55,7 +73,33 @@ public class GameManager : MonoBehaviour
 
     public void OpenOutGame()
     {
-        outGameUi.SetActive(true);
+        UM.InitOutGame();
+    }
+
+    public void ScoreBoard()
+    {
+        List<ScoreEntity> temp = new List<ScoreEntity>();
+        for (int i = 0; i < bucket.Items.Count; i++)
+        {
+            temp.Add(bucket.Items[i]);
+        }
+        UM.InitScoreBoard(temp);
         bucket.EmptyBucket();
+        UM.UpdateMoney(bucket.Money);
+    }
+
+    public void EndScoreboard()
+    {
+        Cursor.visible = false;
+        player.GetComponent<PlayerMovement>().MoonDown(false);
+
+        GameObject[] plants = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < plants.Length; i++)
+        {
+            Destroy(plants[i]);
+        }
+
+        player.GetComponent<PlayerPickUpItem>().Reset();
+        state = GameState.OutRun;
     }
 }
