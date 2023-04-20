@@ -8,6 +8,9 @@ public class CollidableObject : MonoBehaviour
     [SerializeField] ContactFilter2D z_filter;
     private List<Collider2D> z_CollidedObjects = new List<Collider2D>(1);
 
+    [SerializeField] GameObject hoverText;
+    private bool hovered = false;
+
     protected virtual void Start()
     {
         z_collider2D = GetComponent<Collider2D>();
@@ -20,6 +23,13 @@ public class CollidableObject : MonoBehaviour
         {
             OnCollided(item.gameObject);
         }
+
+        if (z_CollidedObjects.Count > 0)
+            hovered = true;
+        else
+            hovered = false;
+
+        hoverText.SetActive(hovered);
     }
 
     protected virtual void OnCollided(GameObject hitObj)

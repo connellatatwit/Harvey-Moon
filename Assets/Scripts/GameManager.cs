@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private Transform player;
     private PlayerStats playerStats;
     [SerializeField] Bucket bucket;
+    [SerializeField] Planter planter;
 
     public static GameManager instance;
 
@@ -66,7 +67,8 @@ public class GameManager : MonoBehaviour
         //Remae the plots
         for (int i = 0; i < landPlots.Count; i++)
         {
-            landPlots[i].InitPlot();
+            //landPlots[i].InitPlot();
+            landPlots[i].InitPlot(planter.GetSeeds(), planter.MinCrops, planter.MaxCrops);
         }
         clock.StartTimer(playerStats.MoonLifeTime);
     }
