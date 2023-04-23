@@ -14,9 +14,10 @@ public class CollidableObject : MonoBehaviour
     protected virtual void Start()
     {
         z_collider2D = GetComponent<Collider2D>();
+        z_filter.SetLayerMask(z_filter.layerMask);
     }
 
-    protected virtual void Update()
+    protected virtual void LateUpdate()
     {
         z_collider2D.OverlapCollider(z_filter, z_CollidedObjects);
         foreach (var item in z_CollidedObjects)

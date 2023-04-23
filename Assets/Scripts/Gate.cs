@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoonShrine : CollidableObject
+public class Gate : CollidableObject
 {
-    [SerializeField] Stats targetStat;
+    [SerializeField] PlotOfLand landOwned;
     protected override void OnCollided(GameObject hitObj)
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -15,6 +15,7 @@ public class MoonShrine : CollidableObject
 
     protected virtual void OnInteract()
     {
-        Store.instance.UpgradePlayer(targetStat);
+        GameManager.instance.AddPlotOfland(landOwned);
+        Destroy(gameObject);
     }
 }

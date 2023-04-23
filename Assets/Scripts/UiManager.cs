@@ -10,6 +10,10 @@ public class UiManager : MonoBehaviour
     [SerializeField] Transform InventoryImages;
 
     [SerializeField] GameObject outGameUi;
+    [SerializeField] GameObject inGameUi;
+
+    [Header("Out Run")]
+    [SerializeField] TextMeshProUGUI moneyText;
 
     [Header("ScoreBoard Items")]
     [SerializeField] GameObject scorePanel; // Panel that shows up in order to like, do stuff
@@ -25,6 +29,8 @@ public class UiManager : MonoBehaviour
 
     public void InitScoreBoard(List<ScoreEntity> entities)
     {
+        moneyText.gameObject.SetActive(false);
+
         ResetScoreBoard();
         scorePanel.SetActive(true);
         newScore = 0;
@@ -33,14 +39,10 @@ public class UiManager : MonoBehaviour
 
     }
 
-    public void InitOutGame()
-    {
-        outGameUi.SetActive(true);
-    }
-
     public void UpdateMoney(int newMoney)
     {
         netScoreText.text = "Money: " + newMoney;
+        moneyText.text = "Money: " + newMoney.ToString();
     }
 
     public IEnumerator AddItemToScore(List<ScoreEntity> entities)

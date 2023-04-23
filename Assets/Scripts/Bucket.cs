@@ -59,14 +59,11 @@ public class Bucket : MonoBehaviour
         }
 
         money += moneyTemp;
-
-        moneyText.text = "Money: " + money.ToString();
     }
 
     public void SpendMoney(int anmount)
     {
         money -= anmount;
-        moneyText.text = "Money: " + money.ToString();
     }
 
     public int Money

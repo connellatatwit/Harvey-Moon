@@ -63,6 +63,7 @@ public class Store : MonoBehaviour
             return;
         }
         bucket.SpendMoney(cost);
+        GameManager.instance.UpdateUI();
 
         playerStats.UpgradeStat(targetStat, value);
 

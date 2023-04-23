@@ -73,11 +73,6 @@ public class GameManager : MonoBehaviour
         clock.StartTimer(playerStats.MoonLifeTime);
     }
 
-    public void OpenOutGame()
-    {
-        UM.InitOutGame();
-    }
-
     public void ScoreBoard()
     {
         List<ScoreEntity> temp = new List<ScoreEntity>();
@@ -103,5 +98,15 @@ public class GameManager : MonoBehaviour
 
         player.GetComponent<PlayerPickUpItem>().Reset();
         state = GameState.OutRun;
+    }
+
+    public void AddPlotOfland(PlotOfLand newPlot)
+    {
+        landPlots.Add(newPlot);
+    }
+
+    public void UpdateUI()
+    {
+        UM.UpdateMoney(bucket.Money);
     }
 }
