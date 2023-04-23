@@ -95,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
     public void MoonDown(bool moonDown)
     {
         moonUp = !moonDown;
+        GetComponent<PlayerAim>().CanAim(moonDown);
         rb.velocity = Vector2.zero;
     }
 }

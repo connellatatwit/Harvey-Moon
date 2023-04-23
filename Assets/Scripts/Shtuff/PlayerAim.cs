@@ -27,6 +27,8 @@ public class PlayerAim : MonoBehaviour
 
     private CameraControl cam;
 
+    private bool canAim = true;
+
     private void Start()
     {
         cam = FindObjectOfType<CameraControl>();
@@ -48,12 +50,15 @@ public class PlayerAim : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
         HandleLook(mousePos);
-        if (Input.GetMouseButton(0))
+        if (canAim)
         {
-            if (shootTimer <= 0)
+            if (Input.GetMouseButton(0))
             {
-                shootTimer = shootCd;
-                HandleShoot(mousePos);
+                if (shootTimer <= 0)
+                {
+                    shootTimer = shootCd;
+                    HandleShoot(mousePos);
+                }
             }
         }
  
@@ -156,5 +161,9 @@ public class PlayerAim : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, .5f);
+    }
+    public void CanAim(bool aimin)
+    {
+        canAim = !aimin;
     }
 }
