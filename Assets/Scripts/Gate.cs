@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gate : CollidableObject
 {
     [SerializeField] PlotOfLand landOwned;
+    [SerializeField] int cost;
     protected override void OnCollided(GameObject hitObj)
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -15,7 +16,11 @@ public class Gate : CollidableObject
 
     protected virtual void OnInteract()
     {
-        GameManager.instance.AddPlotOfland(landOwned);
-        Destroy(gameObject);
+        if(cost <= GameManager.instance.GetBucketMoney())
+        {
+            GameManager.instance.SpendMoney(cost);
+            GameManager.instance.AddPlotOfland(landOwned);
+            Destroy(gameObject);
+        }
     }
 }

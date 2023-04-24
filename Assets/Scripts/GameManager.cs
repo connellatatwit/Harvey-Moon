@@ -122,5 +122,6 @@ public class GameManager : MonoBehaviour
     public void SpendMoney(int amount)
     {
         bucket.SpendMoney(amount);
+        UpdateUI();
     }
 }
