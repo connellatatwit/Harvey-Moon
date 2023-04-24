@@ -37,6 +37,8 @@ public class PlayerAim : MonoBehaviour
         //EquipGun(tempTestGun2);
 
         InitPlayer();
+
+        Cursor.visible = false;
     }
 
     private void InitPlayer()

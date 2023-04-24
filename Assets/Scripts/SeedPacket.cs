@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SeedPacket : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
+public class SeedPacket : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerDownHandler
 {
     [Header("Set Up")]
     [SerializeField] GameObject seedPrefab;
@@ -12,9 +12,16 @@ public class SeedPacket : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
     [Header("Unity Stuff")]
     [SerializeField] Canvas canvas; // This likely will need to be changed... But maybe not >.>
 
+    [SerializeField] GameObject lockedImage;
+
     [SerializeField] GameObject nameObject;
     [SerializeField] Sprite packetSprite;
     [SerializeField] Sprite seedSprite;
+
+    [Header("Purchase Stuff")]
+    [SerializeField] bool locked = true;
+    [SerializeField] int cost;
+    [SerializeField] GameObject purchaseButtons;
 
     private Image image;
     private RectTransform rectTransform;
@@ -32,17 +39,20 @@ public class SeedPacket : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-
-        if (!equipped)
+        if (!locked)
         {
-            if (rectTransform.anchoredPosition.y >= 0)
+            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+
+            if (!equipped)
             {
-                image.sprite = seedSprite;
-            }
-            else
-            {
-                image.sprite = packetSprite;
+                if (rectTransform.anchoredPosition.y >= 0)
+                {
+                    image.sprite = seedSprite;
+                }
+                else
+                {
+                    image.sprite = packetSprite;
+                }
             }
         }
     }
@@ -91,5 +101,23 @@ public class SeedPacket : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
         image = GetComponent<Image>();
         image.sprite = packetSprite;
         rectTransform = GetComponent<RectTransform>();
+    }
+
+    public void Unlock()
+    {
+        locked = false;
+        lockedImage.SetActive(false);
+        GameManager.instance.SpendMoney(cost);
+        nameObject.SetActive(true);
+        purchaseButtons.SetActive(false);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (locked)
+        {
+            if (GameManager.instance.GetBucketMoney() >= cost)
+                purchaseButtons.SetActive(true);
+        }
     }
 }

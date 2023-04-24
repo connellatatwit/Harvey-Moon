@@ -48,7 +48,7 @@ public class Bucket : MonoBehaviour
         entities.Add(newItem);
     }
 
-    public void EmptyBucket()
+    public void EmptyBucket(int multiplyer)
     {
         int moneyTemp = 0;
 
@@ -57,7 +57,7 @@ public class Bucket : MonoBehaviour
             moneyTemp += entities[i].Value;
             entities.RemoveAt(i);
         }
-
+        moneyTemp *= multiplyer;
         money += moneyTemp;
     }
 

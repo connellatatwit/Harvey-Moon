@@ -76,12 +76,17 @@ public class GameManager : MonoBehaviour
     public void ScoreBoard()
     {
         List<ScoreEntity> temp = new List<ScoreEntity>();
+        List<ScoreEntity> multiples = new List<ScoreEntity>();
         for (int i = 0; i < bucket.Items.Count; i++)
         {
             temp.Add(bucket.Items[i]);
+            if (!multiples.Contains(bucket.Items[i]))
+            {
+                multiples.Add(bucket.Items[i]);
+            }
         }
         UM.InitScoreBoard(temp);
-        bucket.EmptyBucket();
+        bucket.EmptyBucket(multiples.Count);
         UM.UpdateMoney(bucket.Money);
     }
 
@@ -108,5 +113,14 @@ public class GameManager : MonoBehaviour
     public void UpdateUI()
     {
         UM.UpdateMoney(bucket.Money);
+    }
+
+    public int GetBucketMoney()
+    {
+        return bucket.Money;
+    }
+    public void SpendMoney(int amount)
+    {
+        bucket.SpendMoney(amount);
     }
 }

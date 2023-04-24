@@ -54,7 +54,7 @@ public class Planter : CollidableObject
 
     public bool AddSeed(GameObject newSeed, Transform imageChild)
     {
-        if(seeds.Count <= maxSeedTypes)
+        if(seeds.Count < maxSeedTypes)
         {
             seeds.Add(newSeed);
             imageChild.SetParent(equippedSeedParent);
