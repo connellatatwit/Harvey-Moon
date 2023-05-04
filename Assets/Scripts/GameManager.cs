@@ -45,10 +45,17 @@ public class GameManager : MonoBehaviour
     {
         if (state == GameState.OutRun)
         {
-            state = GameState.InRun;
-            Cursor.visible = false;
-            UM.CircleLoad();
-            StartCoroutine(ProcessRun());
+            if (planter.GetSeeds().Count <= 0)
+            {
+                StartCoroutine(UM.WriteMessage("Put seeds in the planter!"));
+            }
+            else
+            {
+                state = GameState.InRun;
+                Cursor.visible = false;
+                UM.CircleLoad();
+                StartCoroutine(ProcessRun());
+            }
         }
     }
 
@@ -85,7 +92,7 @@ public class GameManager : MonoBehaviour
                 multiples.Add(bucket.Items[i]);
             }
         }
-        UM.InitScoreBoard(temp);
+        UM.InitScoreBoard(temp, multiples.Count);
         bucket.EmptyBucket(multiples.Count);
         UM.UpdateMoney(bucket.Money);
     }
@@ -123,5 +130,10 @@ public class GameManager : MonoBehaviour
     {
         bucket.SpendMoney(amount);
         UpdateUI();
+    }
+
+    public void WriteMessage(string message)
+    {
+        StartCoroutine(UM.WriteMessage(message));
     }
 }

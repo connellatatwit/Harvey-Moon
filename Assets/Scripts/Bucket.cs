@@ -48,7 +48,7 @@ public class Bucket : MonoBehaviour
         entities.Add(newItem);
     }
 
-    public void EmptyBucket(int multiplyer)
+    public void EmptyBucket(int multiplyer) // returns the new amiunt of money
     {
         int moneyTemp = 0;
 
@@ -59,6 +59,7 @@ public class Bucket : MonoBehaviour
         }
         moneyTemp *= multiplyer;
         money += moneyTemp;
+       // return moneyTemp;
     }
 
     public void SpendMoney(int anmount)

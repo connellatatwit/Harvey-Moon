@@ -20,14 +20,18 @@ public class UiManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI newScoreText;
     private int newScore;
     [SerializeField] TextMeshProUGUI netScoreText;
+    [SerializeField] TextMeshProUGUI newMoneyText;
 
     [SerializeField] Transform iconParent;
 
     [Header("Loading Screen Things")]
     [SerializeField] Animator loadingAnimator;
 
+    [Header("Message Stuff")]
+    [SerializeField] GameObject messageBox;
+    [SerializeField] TextMeshProUGUI messageText;
 
-    public void InitScoreBoard(List<ScoreEntity> entities)
+    public void InitScoreBoard(List<ScoreEntity> entities, int mult)
     {
         moneyText.gameObject.SetActive(false);
 
@@ -35,7 +39,8 @@ public class UiManager : MonoBehaviour
         scorePanel.SetActive(true);
         newScore = 0;
         newScoreText.text = "0";
-        StartCoroutine(AddItemToScore(entities));
+        newMoneyText.text = "Money Earned: " + 0;
+        StartCoroutine(AddItemToScore(entities, mult));
 
     }
 
@@ -45,7 +50,7 @@ public class UiManager : MonoBehaviour
         moneyText.text = "Money: " + newMoney.ToString();
     }
 
-    public IEnumerator AddItemToScore(List<ScoreEntity> entities)
+    public IEnumerator AddItemToScore(List<ScoreEntity> entities, int mult)
     {
         for (int i = 0; i < entities.Count; i++)
         {
@@ -55,6 +60,7 @@ public class UiManager : MonoBehaviour
             newScore += entities[i].Value;
             yield return new WaitForSeconds(1f/10f);
         }
+        newMoneyText.text = "Money Earned: " + (newScore* mult);
     }
     public void AddItemToInventory(GameObject item)
     {
@@ -72,6 +78,20 @@ public class UiManager : MonoBehaviour
         {
             Destroy(iconParent.GetChild(i).gameObject);
         }
+    }
+
+    public IEnumerator WriteMessage(string message) // Terst TYjis
+    {
+        messageBox.SetActive(true);
+        for (int i = 0; i < message.Length+1; i++)
+        {
+            messageText.text = message.Substring(0, i);
+            yield return new WaitForSeconds(.05f);
+
+        }
+        yield return new WaitForSeconds(3f);
+        messageBox.SetActive(false);
+        messageText.text = "";
     }
 
     public void CircleLoad()

@@ -30,6 +30,10 @@ public class PlayerStats : MonoBehaviour
             moonLifeTime += amount;
         }
     }
+    public void IncreaseMoon(float amount)
+    {
+        moonLifeTime += amount;
+    }
 
     private void Start()
     {

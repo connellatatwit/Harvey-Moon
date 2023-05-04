@@ -6,6 +6,10 @@ public class Gate : CollidableObject
 {
     [SerializeField] PlotOfLand landOwned;
     [SerializeField] int cost;
+    [SerializeField] float timerIncrease;
+
+    [HideInInspector]
+    public bool firstGate = false;
     protected override void OnCollided(GameObject hitObj)
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -16,10 +20,21 @@ public class Gate : CollidableObject
 
     protected virtual void OnInteract()
     {
-        if(cost <= GameManager.instance.GetBucketMoney())
+        if (!firstGate)
+        {
+            GameManager.instance.WriteMessage("Opening gates gives more time to harvest crops and opens up new possibilities");
+            Gate[] gates = FindObjectsOfType(typeof(Gate)) as Gate[];
+            for (int i = 0; i < gates.Length; i++)
+            {
+                gates[i].firstGate = true;
+            }
+        }
+
+        if (cost <= GameManager.instance.GetBucketMoney())
         {
             GameManager.instance.SpendMoney(cost);
             GameManager.instance.AddPlotOfland(landOwned);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().IncreaseMoon(timerIncrease);
             Destroy(gameObject);
         }
     }
