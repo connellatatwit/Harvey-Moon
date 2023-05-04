@@ -82,6 +82,9 @@ public class GameManager : MonoBehaviour
 
     public void ScoreBoard()
     {
+        // Clear Objects on floor
+        ClearPickups();
+
         List<ScoreEntity> temp = new List<ScoreEntity>();
         List<ScoreEntity> multiples = new List<ScoreEntity>();
         for (int i = 0; i < bucket.Items.Count; i++)
@@ -97,6 +100,14 @@ public class GameManager : MonoBehaviour
         UM.UpdateMoney(bucket.Money);
     }
 
+    private void ClearPickups()
+    {
+        GameObject[] pickUps = GameObject.FindGameObjectsWithTag("Pickup");
+        for (int i = pickUps.Length - 1; i >= 0; i--)
+        {
+            Destroy(pickUps[i]);
+        }
+    }
     public void EndScoreboard()
     {
         Cursor.visible = false;
