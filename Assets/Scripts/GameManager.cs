@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         {
             if (planter.GetSeeds().Count <= 0)
             {
-                StartCoroutine(UM.WriteMessage("Put seeds in the planter!"));
+                StartCoroutine(UM.WriteMessage("I need to put seeds in the planter or nothing will grow.", "Mr. Moon"));
             }
             else
             {
@@ -143,8 +143,23 @@ public class GameManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void WriteMessage(string message)
+    public void WriteMessage(string message, string name)
     {
-        StartCoroutine(UM.WriteMessage(message));
+        StartCoroutine(UM.WriteMessage(message, name));
+    }
+    public void UpgradePlanter()
+    {
+        if (planter.CurrentCost <= bucket.Money)
+        {
+            planter.UpgradePlanter();
+            // Update Ui
+            UpdatePlanter();
+        }
+        else
+            WriteMessage("Not enough Money", "Planter");
+    }
+    public void UpdatePlanter()
+    {
+        UM.UpdatePlanterText(planter);
     }
 }

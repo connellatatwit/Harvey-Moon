@@ -30,6 +30,11 @@ public class UiManager : MonoBehaviour
     [Header("Message Stuff")]
     [SerializeField] GameObject messageBox;
     [SerializeField] TextMeshProUGUI messageText;
+    [SerializeField] TextMeshProUGUI nameText;
+
+    [Header("Planter Stuff")]
+    [SerializeField] TextMeshProUGUI planterCostText;
+    [SerializeField] TextMeshProUGUI amountOfSeedTypesText;
 
     public void InitScoreBoard(List<ScoreEntity> entities, int mult)
     {
@@ -80,9 +85,10 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    public IEnumerator WriteMessage(string message) // Terst TYjis
+    public IEnumerator WriteMessage(string message, string name) // Terst TYjis
     {
         messageBox.SetActive(true);
+        nameText.text = name;
         for (int i = 0; i < message.Length+1; i++)
         {
             messageText.text = message.Substring(0, i);
@@ -97,5 +103,11 @@ public class UiManager : MonoBehaviour
     public void CircleLoad()
     {
         loadingAnimator.SetTrigger("Circle");
+    }
+
+    public void UpdatePlanterText(Planter planter)
+    {
+        planterCostText.text = "$" + planter.CurrentCost.ToString();
+        amountOfSeedTypesText.text = planter.GetSeeds().Count.ToString() + "/" + planter.MaxTypes.ToString();
     }
 }

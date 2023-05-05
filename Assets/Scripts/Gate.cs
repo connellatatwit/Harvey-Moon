@@ -22,7 +22,7 @@ public class Gate : CollidableObject
     {
         if (!firstGate)
         {
-            GameManager.instance.WriteMessage("Opening gates gives more time to harvest crops and opens up new possibilities");
+            GameManager.instance.WriteMessage("Opening gates gives more time to harvest crops and opens up new possibilities", "Narrator");
             Gate[] gates = FindObjectsOfType(typeof(Gate)) as Gate[];
             for (int i = 0; i < gates.Length; i++)
             {
