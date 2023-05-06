@@ -9,7 +9,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] List<Sprite> headSprites;
     private Rigidbody2D rb;
 
+    [SerializeField] GameObject dazedObject;
+
     private bool moonUp = true;
+    private bool stunned;
+    private Coroutine stunRoutine;
 
     private void Start()
     {
@@ -26,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (moonUp)
+        if (moonUp && !stunned)
         {
             Vector2 dir;
             float x = Input.GetAxis("Horizontal");
@@ -35,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
             dir = new Vector2(x * ps.Speed, y * ps.Speed);
 
             rb.velocity = dir;
+            //rb.velocity = Vector3.ClampMagnitude(rb.velocity, ps.Speed);
         }
     }
 
@@ -97,5 +102,38 @@ public class PlayerMovement : MonoBehaviour
         moonUp = !moonDown;
         GetComponent<PlayerAim>().CanAim(moonDown);
         rb.velocity = Vector2.zero;
+    }
+
+    public void Stun(float time)
+    {
+        rb.velocity = Vector2.zero;
+        if (stunRoutine != null)
+        {
+            StopCoroutine(stunRoutine);
+        }
+        stunRoutine = StartCoroutine(StunTimer(time));
+    }
+    private IEnumerator StunTimer(float time)
+    {
+        dazedObject.SetActive(true);
+        stunned = true;
+        yield return new WaitForSeconds(time);
+        dazedObject.SetActive(false);
+        stunned = false;
+    }
+    public void KnockBack(float force, Vector2 dir)
+    {
+        stunned = true;
+        rb.velocity = Vector2.zero;
+        rb.velocity = dir * force;
+        float time = force / 50f;
+        StartCoroutine(KnockBackTimer(time));
+    }
+    private IEnumerator KnockBackTimer(float time)
+    {
+        dazedObject.SetActive(true);
+        yield return new WaitForSeconds(time);
+        stunned = false;
+        dazedObject.SetActive(false);
     }
 }

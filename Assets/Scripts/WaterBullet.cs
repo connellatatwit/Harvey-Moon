@@ -27,7 +27,9 @@ public class WaterBullet : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            collision.GetComponent<PlayerHealth>().TakeDamage(dmg);
+            //collision.GetComponent<PlayerMovement>().Stun(1f);
+            Vector3 dir = collision.transform.position - transform.position;
+            collision.GetComponent<PlayerMovement>().KnockBack(10, dir.normalized);
             Destroy(gameObject);
         }
         if (collision.tag == "Wall")
