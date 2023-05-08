@@ -15,6 +15,9 @@ public class Planter : CollidableObject
     [SerializeField] int minCrops;
     [SerializeField] int maxSeedTypes; // Max amount of different seeds you can have.
     [SerializeField] int currentCost;
+    [SerializeField] List<GameObject> possibleWeeds;
+
+    private int weedValue = 0;
 
     private PlayerMovement player;
 
@@ -38,6 +41,14 @@ public class Planter : CollidableObject
     public int MaxTypes
     {
         get { return maxSeedTypes; }
+    }
+    public int WeedValue
+    {
+        get { return weedValue; }
+    }
+    public List<GameObject> PossibleWeeds
+    {
+        get { return possibleWeeds; }
     }
 
     protected override void OnCollided(GameObject hitObj)
@@ -69,6 +80,12 @@ public class Planter : CollidableObject
             seeds.Add(newSeed);
             imageChild.SetParent(equippedSeedParent);
             GameManager.instance.UpdatePlanter();
+            weedValue += newSeed.GetComponent<Carrot>().Drop.GetComponent<Plant>().ScoreEntity.Value;
+            //Add weeds
+            for (int i = 0; i < newSeed.GetComponent<Carrot>().PossibleWeeds.Count; i++)
+            {
+                possibleWeeds.Add(newSeed.GetComponent<Carrot>().PossibleWeeds[i]);
+            }
             return true;
         }
         else
@@ -83,6 +100,12 @@ public class Planter : CollidableObject
             seeds.Remove(seedPrefab);
             imageChild.SetParent(seedPacketParent);
             GameManager.instance.UpdatePlanter();
+            weedValue -= seedPrefab.GetComponent<Carrot>().Drop.GetComponent<Plant>().ScoreEntity.Value;
+            // Remove Weeds
+            for (int i = 0; i < seedPrefab.GetComponent<Carrot>().PossibleWeeds.Count; i++)
+            {
+                possibleWeeds.Remove(seedPrefab.GetComponent<Carrot>().PossibleWeeds[i]);
+            }
         }
     }
 

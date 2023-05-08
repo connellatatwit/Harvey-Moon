@@ -34,6 +34,8 @@ public class Bucket : MonoBehaviour
                 {
                     FillBucket(playerInv.GetItem(i));
                 }
+                // Check if any more enemies.
+                GameManager.instance.CheckDone();
             }
         }
         else

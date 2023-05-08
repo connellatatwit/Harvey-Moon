@@ -35,6 +35,10 @@ public class MoonTimer : MonoBehaviour
                 StartCoroutine(EndTimer());
         }
     }
+    public void EndEarly()
+    {
+        timer = 0;
+    }
 
     private IEnumerator EndTimer()
     {
@@ -42,7 +46,7 @@ public class MoonTimer : MonoBehaviour
         started = false;
         bigText.gameObject.SetActive(true);
         bigText.text = "Times Up!";
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3.5f);
         bigText.gameObject.SetActive(false);
 
         GameManager.instance.ScoreBoard();

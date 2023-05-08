@@ -12,6 +12,12 @@ public class PlotOfLand : MonoBehaviour
     [SerializeField] List<GameObject> possibleCrops;
     [SerializeField] List<Patch> patches;
 
+    [SerializeField] List<Transform> weedSpawnLocations;
+
+    public List<Transform> WeedSpawnLocations
+    {
+        get { return weedSpawnLocations; }
+    }
     public void InitPlot()
     {
         int maxSpawns = 0;
@@ -46,6 +52,12 @@ public class PlotOfLand : MonoBehaviour
             }
         }
     }
+    public void SpawnWeed(GameObject prefab)
+    {
+        int randSpawn = Random.Range(0, weedSpawnLocations.Count); // Pick a spawn in the plot
+        GameObject p = Instantiate(prefab, weedSpawnLocations[randSpawn].position, Quaternion.identity);
+        GameManager.instance.AddSpawnedWeed(p);
+    }
 
     void SpawnPlant(Patch currentPatch)
     {
@@ -55,7 +67,8 @@ public class PlotOfLand : MonoBehaviour
     }
     void SpawnPlant(Patch currentPatch, GameObject plant)
     {
-        Instantiate(plant, currentPatch.GetSpawn().position, Quaternion.identity);
+       GameObject p = Instantiate(plant, currentPatch.GetSpawn().position, Quaternion.identity);
+       GameManager.instance.AddSpawnedPlant(p);
         //GameObject plant = Instantiate(mainCropPrefab, currentPatch.GetSpawn().position, Quaternion.identity);
     }
 }

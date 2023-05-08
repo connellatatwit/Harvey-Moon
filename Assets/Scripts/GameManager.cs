@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     private GameState state;
 
+    [SerializeField] List<GameObject> plants;
+    [SerializeField] List<GameObject> weeds;
+
     private void Awake()
     {
         if(instance != null)
@@ -77,6 +80,36 @@ public class GameManager : MonoBehaviour
             //landPlots[i].InitPlot();
             landPlots[i].InitPlot(planter.GetSeeds(), planter.MinCrops, planter.MaxCrops);
         }
+
+        // Decide Weeds
+        /*
+         * Spend all the planters weedvalue by making a list of weeds and subtract the weed's value from the planters value.
+         * Then pick a random plot and spawn a weed inside onf of its weed spawns.
+         */
+        int weedMoney = planter.WeedValue * 5;
+        List<GameObject> weedsToSpawn = new List<GameObject>();
+        int fails = 0;
+        while(weedMoney > 0)
+        {
+            int randWeed = Random.Range(0, planter.PossibleWeeds.Count);
+            if (planter.PossibleWeeds[randWeed].GetComponent<IWeed>().Value <= weedMoney) // if the value of the weed is less than our money then spend the money
+            {
+                weedMoney -= planter.PossibleWeeds[randWeed].GetComponent<IWeed>().Value;
+                weedsToSpawn.Add(planter.PossibleWeeds[randWeed]);
+            }
+            else
+                fails++;
+            if (fails > 10)
+                break;
+        }
+        for (int i = 0; i < weedsToSpawn.Count; i++)
+        {
+            Debug.Log(weedsToSpawn[i].name);
+            int randPlot = Random.Range(0, landPlots.Count); // Pick a plot
+            landPlots[randPlot].SpawnWeed(weedsToSpawn[i]); // SPawn the weed
+        }
+        weedsToSpawn.Clear();
+
         clock.StartTimer(playerStats.MoonLifeTime);
     }
 
@@ -113,14 +146,42 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         player.GetComponent<PlayerMovement>().MoonDown(false);
 
-        GameObject[] plants = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < plants.Length; i++)
+        //GameObject[] plants = GameObject.FindGameObjectsWithTag("Enemy");
+        plants.RemoveAll(x => x == null);
+        weeds.RemoveAll(x => x == null);
+        for (int i = 0; i < plants.Count; i++)
         {
             Destroy(plants[i]);
         }
+        for (int i = 0; i < weeds.Count; i++)
+        {
+            Destroy(weeds[i]);
+        }
+        plants.Clear();
+        weeds.Clear();
 
         player.GetComponent<PlayerPickUpItem>().Reset();
         state = GameState.OutRun;
+    }
+    public void CheckDone()
+    {
+        // Checks if all plants have been harvested or left on the floor.
+        plants.RemoveAll(x => x == null);
+        if (plants.Count > 0)
+            return;
+        else
+        {
+            clock.EndEarly();
+        }
+    }
+
+    public void AddSpawnedPlant(GameObject newPlant)
+    {
+        plants.Add(newPlant);
+    }
+    public void AddSpawnedWeed(GameObject newWeed)
+    {
+        weeds.Add(newWeed);
     }
 
     public void AddPlotOfland(PlotOfLand newPlot)

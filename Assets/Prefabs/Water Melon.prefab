@@ -149,6 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droppedCarrotPrefab: {fileID: 6132109232773227859, guid: c3d20f3de1e384846afbd4fc2f03c5ed, type: 3}
   maxHealth: 20
+  possibleWeeds:
+  - {fileID: 9163190226527707659, guid: 3a153bbd2e6a33349ac21173e704ba11, type: 3}
 --- !u!114 &2339819859205688580
 MonoBehaviour:
   m_ObjectHideFlags: 0
