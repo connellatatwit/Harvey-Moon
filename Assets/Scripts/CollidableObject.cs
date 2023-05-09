@@ -8,7 +8,7 @@ public class CollidableObject : MonoBehaviour
     [SerializeField] ContactFilter2D z_filter;
     private List<Collider2D> z_CollidedObjects = new List<Collider2D>(1);
 
-    [SerializeField] GameObject hoverText;
+    [SerializeField] public GameObject hoverText;
     private bool hovered = false;
 
     protected virtual void Start()

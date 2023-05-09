@@ -34,6 +34,7 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] GameObject currentWeaponObj;
     private IWeapon currentWeapon;
     [SerializeField] GameObject newWeapon;
+    [SerializeField] List<GameObject> weapons;
     private void Start()
     {
         cam = FindObjectOfType<CameraControl>();
@@ -190,5 +191,8 @@ public class PlayerAim : MonoBehaviour
         render.sprite = currentWeapon.Image();
         shootCd = currentWeapon.CD;
     }
-
+    public void NextWeapon(int pos)
+    {
+        EquipNewWeapon(weapons[pos]);
+    }
 }

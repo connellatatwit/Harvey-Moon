@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Planter
   - Pickup
+  - Weapon Cache
   layers:
   - Default
   - TransparentFX

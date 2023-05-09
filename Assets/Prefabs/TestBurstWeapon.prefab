@@ -82,5 +82,5 @@ MonoBehaviour:
   image: {fileID: -1806965084, guid: e6cf020294717d047b0907b83b3292fb, type: 3}
   damage: 1
   speed: 14
-  pierce: 2
+  pierce: 3
   cd: 0.35

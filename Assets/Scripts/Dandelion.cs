@@ -17,7 +17,7 @@ public class Dandelion : MonoBehaviour, IWeed, Enemy
 
     private void Start()
     {
-        shootTimer = shootCd;
+        shootTimer = Random.Range(shootCd - .1f, shootCd + .1f); ;
     }
 
     // Update is called once per frame

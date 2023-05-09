@@ -27,9 +27,9 @@ public class HarvestBurstFire : MonoBehaviour, IWeapon
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.transform.position = gunTip.transform.position;
             bullet.GetComponent<IBullet>().InitBullet(pos, damage, speed, true, pierce);
+            shootSound.Play();
             yield return new WaitForSeconds(.075f);
         }
-        shootSound.Play();
     }
 
     public Sprite Image()
