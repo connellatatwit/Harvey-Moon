@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 5361692010526416216}
   - component: {fileID: 1609971473462421753}
   - component: {fileID: 599607892628531598}
+  - component: {fileID: 6039285697099059645}
   m_Layer: 0
   m_Name: Crab Grass
   m_TagString: Enemy
@@ -181,5 +182,25 @@ MonoBehaviour:
   health: 10
   slashPrefab: {fileID: 1085010013571566320, guid: 0c95785794ec25c468e6207776cc40ba, type: 3}
   slashCd: 5
-  range: 3
-  weedValue: 3
+  range: 2
+  weedValue: 4
+--- !u!95 &6039285697099059645
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361692010526416218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3253c12c6adc9e543a0fd74f4ad0be9a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

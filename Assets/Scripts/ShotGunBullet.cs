@@ -2,20 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IBullet
+public class ShotGunBullet : MonoBehaviour, IBullet
 {
     private float speed;
     private int damage;
 
     private bool player;
 
-    private Rigidbody2D rb;
     [SerializeField] float lifeTime;
     [SerializeField] int amountOfHits;
-
-    private void Start()
-    {
-    }
+    [SerializeField] GameObject bulletPrefab;
+    private Rigidbody2D rb;
 
     public void InitBullet(Vector3 mousePos, int gunDamage, float gunSpeed, bool player, int amountOfHits)
     {
@@ -26,38 +23,13 @@ public class Bullet : MonoBehaviour, IBullet
         Vector3 direction = mousePos - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * speed;
         Vector2 rot = transform.position - mousePos;
-        if(rot.x < 0)
+        if (rot.x < 0)
         {
-            transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y * -1, 1);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * -1, 1);
         }
         float rotation = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, rotation);
 
         this.amountOfHits = amountOfHits;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Enemy")
-        {
-            collision.GetComponent<Enemy>().TakeDamage(damage);
-            amountOfHits--;
-            if(amountOfHits <= 0)
-                Destroy(gameObject);
-        }
-        if(collision.tag == "Wall")
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Update()
-    {
-        lifeTime -= Time.deltaTime;
-
-        if(lifeTime <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 }

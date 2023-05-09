@@ -29,6 +29,11 @@ public class PlayerAim : MonoBehaviour
 
     private bool canAim = true;
 
+
+    [Header("New Weapon System Stuff")]
+    [SerializeField] GameObject currentWeaponObj;
+    private IWeapon currentWeapon;
+    [SerializeField] GameObject newWeapon;
     private void Start()
     {
         cam = FindObjectOfType<CameraControl>();
@@ -36,7 +41,8 @@ public class PlayerAim : MonoBehaviour
         EquipGun(tempTestGun);
         //EquipGun(tempTestGun2);
 
-        InitPlayer();
+        //InitPlayer();
+        EquipNewWeapon(currentWeaponObj);
 
         Cursor.visible = false;
     }
@@ -44,7 +50,7 @@ public class PlayerAim : MonoBehaviour
     private void InitPlayer()
     {
         currentGunInfo = gun1;
-        InitEquippedGun();
+        //InitEquippedGun();
     }
 
     private void Update()
@@ -52,14 +58,16 @@ public class PlayerAim : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
         HandleLook(mousePos);
+        
         if (canAim)
         {
             if (Input.GetMouseButton(0))
             {
                 if (shootTimer <= 0)
                 {
-                    shootTimer = shootCd;
-                    HandleShoot(mousePos);
+                    //shootTimer = shootCd;
+                    //HandleShoot(mousePos);
+                    HandleWeapon(mousePos);
                 }
             }
         }
@@ -67,6 +75,7 @@ public class PlayerAim : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             //SwapGun();
+            EquipNewWeapon(newWeapon);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -153,10 +162,15 @@ public class PlayerAim : MonoBehaviour
     {
         GameObject bullet = Instantiate(currentGunInfo.GetBullet(), transform.position, Quaternion.identity);
         bullet.transform.position = gunTip.transform.position;
-        bullet.GetComponent<Bullet>().InitBullet(mousePos, currentGunInfo.GetDamage(), currentGunInfo.GetSpeed(), true, currentGunInfo.GetPierce()+1);
+        bullet.GetComponent<IBullet>().InitBullet(mousePos, currentGunInfo.GetDamage(), currentGunInfo.GetSpeed(), true, currentGunInfo.GetPierce()+1);
 
         shootSound.Play();
         cam.Shake((transform.position - gunTip.position).normalized, currentGunInfo.GetShakeStrength(), .05f);
+    }
+    private void HandleWeapon(Vector3 mousePos)
+    {
+        currentWeapon.Activate(mousePos);
+        shootTimer = shootCd;
     }
 
     private void OnDrawGizmos()
@@ -168,4 +182,13 @@ public class PlayerAim : MonoBehaviour
     {
         canAim = !aimin;
     }
+
+    public void EquipNewWeapon(GameObject obj)
+    {
+        currentWeapon = obj.GetComponent<IWeapon>();
+        currentWeaponObj = obj;
+        render.sprite = currentWeapon.Image();
+        shootCd = currentWeapon.CD;
+    }
+
 }
