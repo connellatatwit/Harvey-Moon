@@ -277,7 +277,7 @@ MonoBehaviour:
   hoverText: {fileID: 6863910615736953363}
   landOwned: {fileID: 0}
   cost: 20
-  timerIncrease: 5
+  timerIncrease: 10
   firstGate: 0
 --- !u!70 &6863910615849991150
 CapsuleCollider2D:

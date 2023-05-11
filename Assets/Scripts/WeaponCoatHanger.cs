@@ -11,5 +11,8 @@ public class WeaponCoatHanger : MonoBehaviour, IPointerDownHandler
         GameObject WeaponCache = GameObject.FindGameObjectWithTag("Weapon Cache");
         WeaponCache.GetComponent<WeaponManager>().PickWeapon(posOnRack);
     }
-
+    public void SetPos(int newPos)
+    {
+        posOnRack = newPos;
+    }
 }

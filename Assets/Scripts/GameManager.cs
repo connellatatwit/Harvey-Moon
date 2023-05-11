@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> plants;
     [SerializeField] List<GameObject> weeds;
 
+    private bool firstRun = true;
     private void Awake()
     {
         if(instance != null)
@@ -43,6 +44,15 @@ public class GameManager : MonoBehaviour
         playerStats = player.GetComponent<PlayerStats>();
 
         state = GameState.OutRun;
+
+        StartCoroutine(Tutorial());
+    }
+    private IEnumerator Tutorial()
+    {
+        yield return new WaitForSeconds(1.5f);
+        WriteMessage("Use WASD to move and the mouse to attack.", "Tutorial");
+        yield return new WaitForSeconds(5.5f);
+        WriteMessage("Use E to interact.", "Tutorial");
     }
     public void StartRun()
     {
@@ -50,7 +60,7 @@ public class GameManager : MonoBehaviour
         {
             if (planter.GetSeeds().Count <= 0)
             {
-                StartCoroutine(UM.WriteMessage("I need to put seeds in the planter or nothing will grow.", "Mr. Moon"));
+                UM.WriteMessage("I need to put seeds in the planter or nothing will grow.", "Mr. Moon");
             }
             else
             {
@@ -58,6 +68,8 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 UM.CircleLoad();
                 StartCoroutine(ProcessRun());
+                bucket.FlushMoney();
+                UM.UpdateMoney(bucket.Money);
             }
         }
     }
@@ -162,6 +174,13 @@ public class GameManager : MonoBehaviour
 
         player.GetComponent<PlayerPickUpItem>().Reset();
         state = GameState.OutRun;
+
+        //Tutorial Stuff
+        if (firstRun)
+        {
+            WriteMessage("Now that you have some money you can try to upgrade things around the farm. Everytime you start a new run your money will be reset, so make sure to try to spend it all.", "Tutorial");
+            firstRun = false;
+        }
     }
     public void CheckDone()
     {
@@ -206,7 +225,7 @@ public class GameManager : MonoBehaviour
 
     public void WriteMessage(string message, string name)
     {
-        StartCoroutine(UM.WriteMessage(message, name));
+        UM.WriteMessage(message, name);
     }
     public void UpgradePlanter()
     {

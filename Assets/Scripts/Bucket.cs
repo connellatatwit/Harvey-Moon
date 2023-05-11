@@ -68,6 +68,10 @@ public class Bucket : MonoBehaviour
     {
         money -= anmount;
     }
+    public void FlushMoney()
+    {
+        money = 0;
+    }
 
     public int Money
     {

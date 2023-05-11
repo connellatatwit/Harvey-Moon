@@ -11,6 +11,7 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] GameObject outGameUi;
     [SerializeField] GameObject inGameUi;
+    private Coroutine messageRoutine;
 
     [Header("Out Run")]
     [SerializeField] TextMeshProUGUI moneyText;
@@ -36,6 +37,14 @@ public class UiManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI planterCostText;
     [SerializeField] TextMeshProUGUI amountOfSeedTypesText;
 
+    private void Update()
+    {
+        if(messageRoutine != null)
+            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E))
+            {
+                StopMessage();
+            }
+    }
     public void InitScoreBoard(List<ScoreEntity> entities, int mult)
     {
         moneyText.gameObject.SetActive(false);
@@ -84,8 +93,19 @@ public class UiManager : MonoBehaviour
             Destroy(iconParent.GetChild(i).gameObject);
         }
     }
+    public void WriteMessage(string message, string name)
+    {
+        if (messageRoutine != null)
+            StopCoroutine(messageRoutine);
+        messageRoutine = StartCoroutine(WriteMessageRoutine(message, name));
+    }
+    public void StopMessage()
+    {
+        StopCoroutine(messageRoutine);
+        messageBox.SetActive(false);
+    }
 
-    public IEnumerator WriteMessage(string message, string name) // Terst TYjis
+    public IEnumerator WriteMessageRoutine(string message, string name) // Terst TYjis
     {
         messageBox.SetActive(true);
         nameText.text = name;
@@ -95,7 +115,7 @@ public class UiManager : MonoBehaviour
             yield return new WaitForSeconds(.05f);
 
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2.5f);
         messageBox.SetActive(false);
         messageText.text = "";
     }

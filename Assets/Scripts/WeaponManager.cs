@@ -32,6 +32,7 @@ public class WeaponManager : CollidableObject
     {
         if (purchased)
         {
+            UpdateCache();
             weaponUi.SetActive(true);
             GameManager.instance.UpdatePlanter();
         }
@@ -80,10 +81,24 @@ public class WeaponManager : CollidableObject
             hoverText = purchasedText;
             Destroy(temp);
             GameManager.instance.SpendMoney(price);
+            UpdateCache();
         }
         else
         {
             GameManager.instance.WriteMessage("Not Enough Money", "Narrator");
         }
     }
+    private void UpdateCache()
+    {
+        int curPos = 0;
+        for (int i = 0; i < weaponParent.childCount; i++)
+        {
+            if (weaponParent.GetChild(i).gameObject.activeSelf)
+            {
+                weaponParent.GetChild(i).GetComponent<WeaponCoatHanger>().SetPos(curPos);
+                curPos++;
+            }
+        }
+    }
+
 }

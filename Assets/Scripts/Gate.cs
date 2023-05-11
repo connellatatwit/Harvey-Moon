@@ -8,6 +8,8 @@ public class Gate : CollidableObject
     [SerializeField] int cost;
     [SerializeField] float timerIncrease;
 
+    [SerializeField] List<GameObject> relatedGates;
+
     [HideInInspector]
     public bool firstGate = false;
     protected override void OnCollided(GameObject hitObj)
@@ -35,6 +37,10 @@ public class Gate : CollidableObject
             GameManager.instance.SpendMoney(cost);
             GameManager.instance.AddPlotOfland(landOwned);
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().IncreaseMoon(timerIncrease);
+            for (int i = relatedGates.Count - 1; i >= 0; i--)
+            {
+                Destroy(relatedGates[i]);
+            }
             Destroy(gameObject);
         }
     }
