@@ -13,6 +13,7 @@ public class PlotOfLand : MonoBehaviour
     [SerializeField] List<Patch> patches;
 
     [SerializeField] List<Transform> weedSpawnLocations;
+    private List<Transform> presentWeedSpawns = new List<Transform>();
 
     public List<Transform> WeedSpawnLocations
     {
@@ -32,6 +33,7 @@ public class PlotOfLand : MonoBehaviour
                 SpawnPlant(patches[i]);
             }
         }
+
     }
     public void InitPlot(List<GameObject> crops, int minCrops, int maxCrops)
     {
@@ -51,12 +53,21 @@ public class PlotOfLand : MonoBehaviour
                 SpawnPlant(patches[i], plant);
             }
         }
+
+        // RESET THE WEED SPANWS LIKE THE PATCHES BUT WORSE
+        presentWeedSpawns.Clear();
+
+        for (int i = 0; i < weedSpawnLocations.Count; i++)
+        {
+            presentWeedSpawns.Add(weedSpawnLocations[i]);
+        }
     }
     public void SpawnWeed(GameObject prefab)
     {
-        int randSpawn = Random.Range(0, weedSpawnLocations.Count); // Pick a spawn in the plot
-        GameObject p = Instantiate(prefab, weedSpawnLocations[randSpawn].position, Quaternion.identity);
+        int randSpawn = Random.Range(0, presentWeedSpawns.Count); // Pick a spawn in the plot
+        GameObject p = Instantiate(prefab, presentWeedSpawns[randSpawn].position, Quaternion.identity);
         GameManager.instance.AddSpawnedWeed(p);
+        presentWeedSpawns.RemoveAt(randSpawn);
     }
 
     void SpawnPlant(Patch currentPatch)
@@ -70,5 +81,13 @@ public class PlotOfLand : MonoBehaviour
        GameObject p = Instantiate(plant, currentPatch.GetSpawn().position, Quaternion.identity);
        GameManager.instance.AddSpawnedPlant(p);
         //GameObject plant = Instantiate(mainCropPrefab, currentPatch.GetSpawn().position, Quaternion.identity);
+    }
+    public bool WeedSpace()
+    {
+        if(presentWeedSpawns.Count <= 0)
+        {
+            return false;
+        }
+        return true;
     }
 }

@@ -114,11 +114,20 @@ public class GameManager : MonoBehaviour
             if (fails > 10)
                 break;
         }
+        List<PlotOfLand> presentPlots = new List<PlotOfLand>();
+        for (int i = 0; i < landPlots.Count; i++)
+        {
+            presentPlots.Add(landPlots[i]);
+        }
+
         for (int i = 0; i < weedsToSpawn.Count; i++)
         {
-            Debug.Log(weedsToSpawn[i].name);
-            int randPlot = Random.Range(0, landPlots.Count); // Pick a plot
-            landPlots[randPlot].SpawnWeed(weedsToSpawn[i]); // SPawn the weed
+            if (presentPlots.Count <= 0)
+                break;
+            int randPlot = Random.Range(0, presentPlots.Count); // Pick a plot
+            presentPlots[randPlot].SpawnWeed(weedsToSpawn[i]); // SPawn the weed
+            if (!presentPlots[randPlot].WeedSpace())
+                presentPlots.RemoveAt(randPlot);
         }
         weedsToSpawn.Clear();
 
@@ -231,6 +240,7 @@ public class GameManager : MonoBehaviour
     {
         if (planter.CurrentCost <= bucket.Money)
         {
+            bucket.SpendMoney(planter.CurrentCost);
             planter.UpgradePlanter();
             // Update Ui
             UpdatePlanter();
@@ -241,5 +251,6 @@ public class GameManager : MonoBehaviour
     public void UpdatePlanter()
     {
         UM.UpdatePlanterText(planter);
+        UM.UpdateMoney(bucket.Money);
     }
 }
