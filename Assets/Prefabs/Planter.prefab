@@ -69,8 +69,14 @@ MonoBehaviour:
   maxCrops: 10
   minCrops: 3
   maxSeedTypes: 2
-  currentCost: 5
+  currentCost: 50
   possibleWeeds: []
+  messages:
+  - Crops attract weeds to grow on your land.
+  - More valuable plants tend to bring more weeds.
+  names:
+  - Narrator
+  - Narrator
 --- !u!58 &4707219562625952102
 CircleCollider2D:
   m_ObjectHideFlags: 0

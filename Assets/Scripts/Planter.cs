@@ -20,6 +20,10 @@ public class Planter : CollidableObject
     private int weedValue = 0;
 
     private PlayerMovement player;
+    [Header("Tutorial Stuff")]
+    [SerializeField] List<string> messages;
+    [SerializeField] List<string> names;
+    private bool secondClose = true;
 
     public List<GameObject> GetSeeds()
     {
@@ -71,6 +75,15 @@ public class Planter : CollidableObject
     {
         seederUi.SetActive(false);
         player.MoonDown(false);
+        if (secondClose)
+        {
+            SeconfClose();
+        }
+    }
+    private void SeconfClose()
+    {
+        secondClose = false;
+        GameManager.instance.WriteMessage(messages, names);
     }
 
     public bool AddSeed(GameObject newSeed, Transform imageChild)

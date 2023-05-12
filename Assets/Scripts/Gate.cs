@@ -22,15 +22,6 @@ public class Gate : CollidableObject
 
     protected virtual void OnInteract()
     {
-        if (!firstGate)
-        {
-            GameManager.instance.WriteMessage("Opening gates gives more time to harvest crops and opens up new possibilities", "Narrator");
-            Gate[] gates = FindObjectsOfType(typeof(Gate)) as Gate[];
-            for (int i = 0; i < gates.Length; i++)
-            {
-                gates[i].firstGate = true;
-            }
-        }
 
         if (cost <= GameManager.instance.GetBucketMoney())
         {
@@ -42,6 +33,19 @@ public class Gate : CollidableObject
                 Destroy(relatedGates[i]);
             }
             Destroy(gameObject);
+        }
+        else if (firstGate)
+        {
+            GameManager.instance.CheckCost(cost);
+        }
+        if (!firstGate)
+        {
+            GameManager.instance.WriteMessage("Opening gates gives more time to harvest crops and opens up new possibilities", "Narrator");
+            Gate[] gates = FindObjectsOfType(typeof(Gate)) as Gate[];
+            for (int i = 0; i < gates.Length; i++)
+            {
+                gates[i].firstGate = true;
+            }
         }
     }
 }

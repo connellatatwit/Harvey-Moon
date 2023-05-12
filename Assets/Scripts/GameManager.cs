@@ -189,9 +189,19 @@ public class GameManager : MonoBehaviour
         //Tutorial Stuff
         if (firstRun)
         {
-            WriteMessage("Now that you have some money you can try to upgrade things around the farm. Everytime you start a new run your money will be reset, so make sure to try to spend it all.", "Tutorial");
-            firstRun = false;
+            EndOfFirstRun();
         }
+    }
+    private void EndOfFirstRun()
+    {
+        List<string> words = new List<string>();
+        List<string> narrator = new List<string>();
+        words.Add("Now that you have some money you can try to upgrade things around the farm.");
+        words.Add("Everytime you start a new run your money will be reset, so make sure to try to spend it all.");
+        narrator.Add("Narrator");
+        narrator.Add("Narrator");
+        WriteMessage(words, narrator);
+        firstRun = false;
     }
     public void CheckDone()
     {
@@ -244,15 +254,26 @@ public class GameManager : MonoBehaviour
     }
     public void UpgradePlanter()
     {
-        if (planter.CurrentCost <= bucket.Money)
+        if (CheckCost(planter.CurrentCost))
         {
             bucket.SpendMoney(planter.CurrentCost);
             planter.UpgradePlanter();
             // Update Ui
             UpdatePlanter();
         }
+    }
+
+    public bool CheckCost(int cost)
+    {
+        if(cost <= bucket.Money)
+        {
+            return true;
+        }
         else
-            WriteMessage("Not enough Money", "Planter");
+        {
+            WriteMessage("Not enough Money", "Narrator");
+            return false;
+        }
     }
     public void UpdatePlanter()
     {

@@ -7,6 +7,16 @@ public class Patch : MonoBehaviour
     [SerializeField] List<Transform> spawnLocations;
     private List<Transform> spawnLocationsPresent = new List<Transform>();
 
+    private void Start()
+    {
+        if(spawnLocations.Count == 0)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                spawnLocations.Add(transform.GetChild(i));
+            }
+        }
+    }
     public void InitPatch()
     {
         spawnLocationsPresent.Clear();
