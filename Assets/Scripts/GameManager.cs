@@ -10,6 +10,10 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
+    [TextArea(3,3)]
+    [SerializeField] List<string> tutorialMessages;
+    [SerializeField] List<string> tutorialNames;
+
     [SerializeField] Transform startLocation;
     [SerializeField] List<PlotOfLand> landPlots;
     [SerializeField] MoonTimer clock;
@@ -49,10 +53,8 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator Tutorial()
     {
-        yield return new WaitForSeconds(1.5f);
-        WriteMessage("Use WASD to move and the mouse to attack.", "Tutorial");
-        yield return new WaitForSeconds(5.5f);
-        WriteMessage("Use E to interact.", "Tutorial");
+        yield return new WaitForSeconds(1f);
+        UM.WriteMessage(tutorialMessages, tutorialNames);
     }
     public void StartRun()
     {
@@ -235,6 +237,10 @@ public class GameManager : MonoBehaviour
     public void WriteMessage(string message, string name)
     {
         UM.WriteMessage(message, name);
+    }
+    public void WriteMessage(List<string> messages, List<string> names)
+    {
+        UM.WriteMessage(messages, names);
     }
     public void UpgradePlanter()
     {

@@ -32,18 +32,38 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject messageBox;
     [SerializeField] TextMeshProUGUI messageText;
     [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] float baseTextSpeed;
+    [SerializeField] float ffTextSpeed;
+    private float usedSpeed;
+    private bool writing;
+    private bool nextMessageReady;
 
     [Header("Planter Stuff")]
     [SerializeField] TextMeshProUGUI planterCostText;
     [SerializeField] TextMeshProUGUI amountOfSeedTypesText;
 
+    private void Start()
+    {
+        usedSpeed = baseTextSpeed;
+    }
     private void Update()
     {
-        if(messageRoutine != null)
+        if (messageRoutine != null)
+        {
             if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E))
             {
-                StopMessage();
+                if (!writing)
+                {
+                    StopMessage();
+                }
             }
+            if(Input.GetMouseButton(1) || Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.E))
+            {
+                usedSpeed = ffTextSpeed;
+            }
+            if (Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.E))
+                usedSpeed = baseTextSpeed;
+        }
     }
     public void InitScoreBoard(List<ScoreEntity> entities, int mult)
     {
@@ -99,25 +119,73 @@ public class UiManager : MonoBehaviour
             StopCoroutine(messageRoutine);
         messageRoutine = StartCoroutine(WriteMessageRoutine(message, name));
     }
+    public void WriteMessage(List<string> messages, List<string> names)
+    {
+        StartCoroutine(WriteMessages(messages, names));
+        /*for (int i = 0; i < messages.Count; i++)
+        {
+            while(messageRoutine != null)
+            {
+                Debug.Log("witing");
+            }
+            messageRoutine = StartCoroutine(WriteMessageRoutine(messages[i], names[i]));
+        }*/
+    }
     public void StopMessage()
     {
         StopCoroutine(messageRoutine);
         messageBox.SetActive(false);
+        nextMessageReady = true;
     }
 
     public IEnumerator WriteMessageRoutine(string message, string name) // Terst TYjis
     {
         messageBox.SetActive(true);
         nameText.text = name;
+        writing = true;
+        nextMessageReady = false;
         for (int i = 0; i < message.Length+1; i++)
         {
             messageText.text = message.Substring(0, i);
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(usedSpeed);
 
         }
-        yield return new WaitForSeconds(2.5f);
+        writing = false;
+        yield return new WaitForSeconds(10f);
+        nextMessageReady = true;
         messageBox.SetActive(false);
         messageText.text = "";
+    }
+    public IEnumerator WriteMessageRoutine(string message, string name, float time) // Terst TYjis
+    {
+        usedSpeed = time;
+        messageBox.SetActive(true);
+        nameText.text = name;
+        writing = true;
+        for (int i = 0; i < message.Length + 1; i++)
+        {
+            messageText.text = message.Substring(0, i);
+            yield return new WaitForSeconds(usedSpeed);
+
+        }
+        writing = false;
+        yield return new WaitForSeconds(3f);
+        messageBox.SetActive(false);
+        messageText.text = "";
+    }
+    public IEnumerator WriteMessages(List<string> messages, List<string> names)
+    {
+        Debug.Log(messages.Count);
+        for (int i = 0; i < messages.Count; i++)
+        {
+            Debug.Log(i);
+            if (messageRoutine != null)
+                StopCoroutine(messageRoutine);
+            messageRoutine = StartCoroutine(WriteMessageRoutine(messages[i], names[i]));
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() =>  nextMessageReady == true);
+            yield return new WaitForSeconds(.05f);
+        }
     }
 
     public void CircleLoad()

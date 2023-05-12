@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 8055704231792707866}
   - component: {fileID: 8660628302680390036}
   - component: {fileID: 7370612826612781047}
+  - component: {fileID: 893088833256290616}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -528,6 +529,9 @@ MonoBehaviour:
     rapidFire: 0
     bulletPrefab: {fileID: 0}
     gunImage: {fileID: 0}
+  currentWeaponObj: {fileID: 0}
+  newWeapon: {fileID: 0}
+  weapons: []
 --- !u!114 &8660628302680390036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +564,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoonLifeTime: 15
   baseSpeed: 7.5
+--- !u!114 &893088833256290616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116763922298588537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad11eb8785b91234b88e48ca274b1032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  purgatoryQuest: 0
 --- !u!1 &7116763922644188856
 GameObject:
   m_ObjectHideFlags: 0
