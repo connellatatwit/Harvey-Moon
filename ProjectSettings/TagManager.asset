@@ -21,7 +21,7 @@ TagManager:
   - PickUpAble
   - 
   - 
-  - 
+  - Enemy
   - Player
   - Wall
   - 

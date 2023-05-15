@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5008013713361392738}
   - component: {fileID: 5008013713361392739}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5008013714168259899}
   - component: {fileID: 5008013714168259896}
   - component: {fileID: 5008013714168259897}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Corn
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -150,3 +150,6 @@ MonoBehaviour:
   maxHealth: 4
   possibleWeeds:
   - {fileID: 5361692010526416218, guid: 8d497027b328739469044c40d599d42a, type: 3}
+  flashMat: {fileID: 2100000, guid: 37fbefab460150e4491b5e70e2fba05f, type: 2}
+  duration: 0.125
+  sr: {fileID: 5008013713361392739}

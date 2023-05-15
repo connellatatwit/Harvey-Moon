@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 878416589249661027}
   - component: {fileID: 878416589249661026}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 878416589524908346}
   - component: {fileID: 878416589524908345}
   - component: {fileID: 878416589524908344}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Carrot
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -150,3 +150,6 @@ MonoBehaviour:
   maxHealth: 2
   possibleWeeds:
   - {fileID: 9163190226527707659, guid: 3a153bbd2e6a33349ac21173e704ba11, type: 3}
+  flashMat: {fileID: 2100000, guid: 37fbefab460150e4491b5e70e2fba05f, type: 2}
+  duration: 0.125
+  sr: {fileID: 878416589249661026}

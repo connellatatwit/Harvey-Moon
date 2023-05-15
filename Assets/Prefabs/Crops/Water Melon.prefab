@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5154361113244713965}
   - component: {fileID: 5154361113244713964}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5154361113519960759}
   - component: {fileID: 5154361113519960758}
   - component: {fileID: 2339819859205688580}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Water Melon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -152,6 +152,9 @@ MonoBehaviour:
   possibleWeeds:
   - {fileID: 9163190226527707659, guid: 3a153bbd2e6a33349ac21173e704ba11, type: 3}
   - {fileID: 5361692010526416218, guid: 8d497027b328739469044c40d599d42a, type: 3}
+  flashMat: {fileID: 2100000, guid: 37fbefab460150e4491b5e70e2fba05f, type: 2}
+  duration: 0.125
+  sr: {fileID: 5154361113244713964}
 --- !u!114 &2339819859205688580
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -186,8 +186,10 @@ public class PlayerAim : MonoBehaviour
 
     public void EquipNewWeapon(GameObject obj)
     {
+        currentWeaponObj.SetActive(false);
         currentWeapon = obj.GetComponent<IWeapon>();
         currentWeaponObj = obj;
+        currentWeaponObj.SetActive(true);
         render.sprite = currentWeapon.Image();
         shootCd = currentWeapon.CD;
     }

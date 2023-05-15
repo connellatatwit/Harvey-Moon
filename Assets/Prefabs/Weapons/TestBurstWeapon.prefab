@@ -79,7 +79,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1019834075862802972, guid: 6abbf08500c012c44a98ab3b7a101399, type: 3}
   gunTip: {fileID: 0}
   shootSound: {fileID: 0}
-  image: {fileID: -1806965084, guid: e6cf020294717d047b0907b83b3292fb, type: 3}
+  image: {fileID: -1139091181, guid: f7efc114ab36c494dbf638a95382aae4, type: 3}
   damage: 1
   speed: 14
   pierce: 3

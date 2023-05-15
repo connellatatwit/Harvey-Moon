@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5361692009955479476}
   - component: {fileID: 5361692009955479477}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5361692010114068169}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 1609971473462421753}
   - component: {fileID: 599607892628531598}
   - component: {fileID: 6039285697099059645}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Crab Grass
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -184,6 +184,9 @@ MonoBehaviour:
   slashCd: 5
   range: 2
   weedValue: 4
+  flashMat: {fileID: 2100000, guid: 37fbefab460150e4491b5e70e2fba05f, type: 2}
+  duration: 0.125
+  sr: {fileID: 5361692009955479477}
 --- !u!95 &6039285697099059645
 Animator:
   serializedVersion: 5

@@ -13,11 +13,19 @@ public class Dandelion : MonoBehaviour, IWeed, Enemy
 
     [SerializeField] int value;
 
+    [Header("Flash Stuff")]
+    [SerializeField] Material flashMat;
+    private Material originalMat;
+    private Coroutine flashRoutine;
+    [SerializeField] float duration = .125f;
+    [SerializeField] SpriteRenderer sr;
+
     public int Value => value;
 
     private void Start()
     {
-        shootTimer = Random.Range(shootCd - .1f, shootCd + .1f); ;
+        shootTimer = Random.Range(shootCd - .1f, shootCd + .1f);
+        originalMat = sr.material;
     }
 
     // Update is called once per frame
@@ -48,5 +56,17 @@ public class Dandelion : MonoBehaviour, IWeed, Enemy
 
         if (health <= 0)
             Destroy(gameObject);
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+    public IEnumerator FlashRoutine()
+    {
+        sr.material = flashMat;
+        yield return new WaitForSeconds(duration);
+        sr.material = originalMat;
+        flashRoutine = null;
     }
 }

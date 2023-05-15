@@ -9,6 +9,13 @@ public class Carrot : MonoBehaviour, Enemy
     private int currentHealth;
     [SerializeField] List<GameObject> possibleWeeds;
 
+    [Header("Flash Stuff")]
+    [SerializeField] Material flashMat;
+    private Material originalMat;
+    private Coroutine flashRoutine;
+    [SerializeField] float duration = .125f;
+    [SerializeField] SpriteRenderer sr;
+
     public GameObject Drop
     {
         get { return droppedCarrotPrefab; }
@@ -17,6 +24,7 @@ public class Carrot : MonoBehaviour, Enemy
     private void Start()
     {
         currentHealth = maxHealth;
+        originalMat = sr.material;
     }
     public List<GameObject> PossibleWeeds
     {
@@ -31,5 +39,18 @@ public class Carrot : MonoBehaviour, Enemy
             Instantiate(droppedCarrotPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+
+        if(flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+    public IEnumerator FlashRoutine()
+    {
+        sr.material = flashMat;
+        yield return new WaitForSeconds(duration);
+        sr.material = originalMat;
+        flashRoutine = null;
     }
 }

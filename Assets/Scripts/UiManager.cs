@@ -175,7 +175,6 @@ public class UiManager : MonoBehaviour
     }
     public IEnumerator WriteMessages(List<string> messages, List<string> names)
     {
-        Debug.Log(messages.Count);
         for (int i = 0; i < messages.Count; i++)
         {
             Debug.Log(i);

@@ -12,13 +12,21 @@ public class CrabGrass : MonoBehaviour, IWeed, Enemy
     [SerializeField] int weedValue;
     private Transform player;
     private Animator anim;
+
+    [Header("Flash Stuff")]
+    [SerializeField] Material flashMat;
+    private Material originalMat;
+    private Coroutine flashRoutine;
+    [SerializeField] float duration = .125f;
+    [SerializeField] SpriteRenderer sr;
     public int Value => weedValue;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        slashTimer = slashCd;
+        slashTimer = 1f;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        originalMat = sr.material;
     }
     private void Update()
     {
@@ -50,6 +58,18 @@ public class CrabGrass : MonoBehaviour, IWeed, Enemy
 
         if (health <= 0)
             Destroy(gameObject);
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+    public IEnumerator FlashRoutine()
+    {
+        sr.material = flashMat;
+        yield return new WaitForSeconds(duration);
+        sr.material = originalMat;
+        flashRoutine = null;
     }
     private void OnDrawGizmosSelected()
     {

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    [SerializeField] Transform player;
+    [SerializeField] Transform currentTarget;
+    private Transform player;
+    private float baseCamSize;
+    private bool mouseFollow = true;
     Vector3 target, mousePos, refVal, shakeOffset;
     [SerializeField] float cameraDist = 3.5f;
     [SerializeField] float smoothTime = .2f;
@@ -13,12 +16,18 @@ public class CameraControl : MonoBehaviour
     Vector3 shakeVector;
     bool shaking;
 
+    [SerializeField] Transform testPos;
+    [SerializeField] Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        target = player.position;
+        currentTarget = GameObject.FindGameObjectWithTag("Player").transform;
+        player = currentTarget;
+        target = currentTarget.position;
         zStart = transform.position.z;
+        cam = GetComponent<Camera>();
+        baseCamSize = cam.orthographicSize;
     }
 
     // Update is called once per frame
@@ -26,8 +35,20 @@ public class CameraControl : MonoBehaviour
     {
         mousePos = CameraPosition();
         shakeOffset = UpdateShake();
-        target = UpdateTargetPos();
+        if (mouseFollow)
+            target = UpdateTargetPos();
+        else
+            target = UpdateTargetPos2();
         UpdateCameraPosition();
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            NewTarget(testPos, 7, false);
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            ResetCam();
+        }
     }
 
     Vector3 CameraPosition()
@@ -46,7 +67,14 @@ public class CameraControl : MonoBehaviour
     Vector3 UpdateTargetPos()
     {
         Vector3 mouseOffset = mousePos * cameraDist;
-        Vector3 ret = player.position + mouseOffset;
+        Vector3 ret = currentTarget.position + mouseOffset;
+        ret += shakeOffset;
+        ret.z = zStart;
+        return ret;
+    }
+    Vector3 UpdateTargetPos2()
+    {
+        Vector3 ret = currentTarget.position;
         ret += shakeOffset;
         ret.z = zStart;
         return ret;
@@ -74,5 +102,18 @@ public class CameraControl : MonoBehaviour
         Vector3 tempOffset = shakeVector;
         tempOffset *= shakeMag;
         return tempOffset;
+    }
+
+    public void NewTarget(Transform newTarget, int size, bool camFollow)
+    {
+        currentTarget = newTarget;
+        cam.orthographicSize = size;
+        mouseFollow = camFollow;
+    }
+    public void ResetCam()
+    {
+        currentTarget = player;
+        cam.orthographicSize = baseCamSize;
+        mouseFollow = true;
     }
 }

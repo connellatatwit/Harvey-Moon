@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9163190225729679534}
   - component: {fileID: 9163190225729679533}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 9163190226527707657}
   - component: {fileID: 9163190226527707658}
   - component: {fileID: 2528060948431017896}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dandelion
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -135,6 +135,9 @@ MonoBehaviour:
   shootPos: {fileID: 9163190225729679534}
   shootCd: 5
   value: 1
+  flashMat: {fileID: 2100000, guid: 37fbefab460150e4491b5e70e2fba05f, type: 2}
+  duration: 0.125
+  sr: {fileID: 9163190227098644708}
 --- !u!58 &2528060948431017896
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -160,7 +163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9163190226940580248}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9163190227098644709}
   - component: {fileID: 9163190227098644708}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -34,7 +34,7 @@ public class WeaponManager : CollidableObject
         {
             UpdateCache();
             weaponUi.SetActive(true);
-            GameManager.instance.UpdatePlanter();
+            UpdateCache();
         }
         else
         {
@@ -71,6 +71,13 @@ public class WeaponManager : CollidableObject
             weaponParent.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(425*(-(pos - i)),0,0);
         }
     }
+    public void MoveWeapon(int pos)
+    {
+        for (int i = 0; i < weaponParent.childCount; i++)
+        {
+            weaponParent.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(425 * (-(pos - i)), 0, 0);
+        }
+    }
 
     public void BuyWeaponCache()
     {
@@ -98,6 +105,11 @@ public class WeaponManager : CollidableObject
                 weaponParent.GetChild(i).GetComponent<WeaponCoatHanger>().SetPos(curPos);
                 curPos++;
             }
+        }
+
+        for (int i = 0; i < weaponParent.childCount; i++)
+        {
+            weaponParent.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(425 * (-(currentWeapon - i)), 0, 0);
         }
     }
 
