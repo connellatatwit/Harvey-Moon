@@ -177,7 +177,6 @@ public class UiManager : MonoBehaviour
     {
         for (int i = 0; i < messages.Count; i++)
         {
-            Debug.Log(i);
             if (messageRoutine != null)
                 StopCoroutine(messageRoutine);
             messageRoutine = StartCoroutine(WriteMessageRoutine(messages[i], names[i]));
