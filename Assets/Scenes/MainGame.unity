@@ -36653,6 +36653,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ui (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2801100416015086197, guid: 898ae264f9cbd6840a4d4dd5d578550f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 236854219}
+    - target: {fileID: 2801100416015086197, guid: 898ae264f9cbd6840a4d4dd5d578550f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradePlanter
+      objectReference: {fileID: 0}
     - target: {fileID: 2801100416112341310, guid: 898ae264f9cbd6840a4d4dd5d578550f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -36707,7 +36715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7415591327573106761, guid: 898ae264f9cbd6840a4d4dd5d578550f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7459594073616283787, guid: 898ae264f9cbd6840a4d4dd5d578550f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -38411,7 +38419,7 @@ PrefabInstance:
       objectReference: {fileID: 1651979093}
     - target: {fileID: 2801100415566728927, guid: 898ae264f9cbd6840a4d4dd5d578550f, type: 3}
       propertyPath: m_Name
-      value: ui
+      value: ui (Old but kept because things might brake)
       objectReference: {fileID: 0}
     - target: {fileID: 2801100415566728927, guid: 898ae264f9cbd6840a4d4dd5d578550f, type: 3}
       propertyPath: m_IsActive
