@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if (state == GameState.OutRun)
         {
+            Debug.Log("HEre");
             if (planter.GetSeeds().Count <= 0)
             {
                 UM.WriteMessage("I need to put seeds in the planter or nothing will grow.", "Mr. Moon");
